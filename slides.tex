@@ -1,0 +1,103 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage[pdf]{graphviz}
+\usetheme{Copenhagen}
+%Information to be included in the title page:
+\author{Markus Schoetz}
+\title{Twin Testing the Themis BFT Framework}
+\institute{C4 - FAU Erlangen}
+\date{2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Inhalt}
+\tableofcontents
+\end{frame}
+
+\section{Ziel}
+\begin{frame}
+\frametitle{Ziel der Arbeit}
+\begin{itemize}
+ \item Was: Bachelorarbeit zum Implementieren von Twins in Themis
+ \item Wie:
+ \begin{itemize}
+  \item Ausarbeiten eines Szenarios
+  \item Umsetzen eines Szenario Generator
+  \item Umsetzen eines Szenario Executor
+ \end{itemize}
+ \item Wozu: Abhärten von Themis
+\end{itemize}
+\end{frame}
+
+\section{Twins}
+\begin{frame}
+\frametitle{Twins}
+ \begin{itemize}
+  \item Test Framework für BFT Algorithmen
+  \item Generiert systematisch Test Szenarien (Generator)
+  \item Simulation: Ausführen dieser Szenarien
+  \item Validierung des Zustands (evtl. Zwischenzustände)
+  % \begin{itemize}
+  %  \item 
+  % \end{itemize}
+ \end{itemize}
+
+% behaviors: (i) leader equivocation, (ii) double voting, and (iii)
+% losing internal state such as forgetting \end{itemize}
+\end{frame}
+
+\subsection{Szenario}
+\subsubsection{Partition}
+\begin{frame}
+\frametitle{Partition}
+ \digraph{abc}{
+   rankdir=LR;
+   a -> b -> c;
+ }
+\end{frame}
+\subsubsection{Szenario genauer}
+\begin{frame}
+ \frametitle{Szenario}
+ \begin{itemize}
+  \item Anfangszustand:
+  \begin{itemize}
+   \item Liste der Nodes mit Twin $n_4$: $\{n_1,n_2,n_3,n_{4,1},n_{4,2}\}$
+
+   \item Initial Zustand der Nodes
+   \item Liste der Clients: $\{c_1,c_2\}$
+  \end{itemize}
+  \item Ablauf:
+  \begin{itemize}
+   \item Auslöser für Zustandsübergang (Protokoll Schritt)
+   \item Liste von Partitionen
+   \item Liste von Client Nachrichten
+  \end{itemize}
+
+ \end{itemize}
+\end{frame}
+
+\subsection{Executor}
+\begin{frame}
+\frametitle{Executor}
+"Führt Szenario aus"
+ \begin{itemize}
+  \item Monitior des Zustands (Network Layer Injection in Tokio)
+  \item Konfiguriert Network Layer Injection
+  \item Simuliert Client Anfragen aus Szenario
+  \item Validiert Zustand (Safety / Liveness)
+ \end{itemize}
+\end{frame}
+
+\section{Zutun}
+\begin{frame}
+\frametitle{Nächste Schritte}
+Arbeite gerade an Szenario Generator, dazu:
+ \begin{itemize}
+  \item Genauer definieren von Szenario Datenstruktur
+  \item Überlegungen zum Einschränken der Szenariomenge
+ \end{itemize}
+\end{frame}
+\end{document}
